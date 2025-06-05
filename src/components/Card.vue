@@ -7,11 +7,13 @@
         <span class="card__action">перевернуть</span>
       </div>
       <div class="back">
+        <ApproveIcon v-if="isApprove" class="big-icon " />
+        <CloseIcon v-if="isReject" class="big-icon" />
         <span class="card__count">{{ card.cardNumber }}</span>
           <p class="card__word">{{ card.translation }}</p>
           <div class="card__button">
-            <CloseIcon />
-            <ApproveIcon />
+            <CloseIcon @click.stop="handleReject" />
+            <ApproveIcon @click.stop="handleApprove" />
           </div>
       </div>
     </div>
@@ -24,6 +26,8 @@ import ApproveIcon from '../icons/ApproveIcon.vue';
 import CloseIcon from '../icons/CloseIcon.vue';
 
 const isFlipped = ref(false);
+const isApprove = ref(false);
+const isReject = ref(false);
 
 const props = defineProps({
   card: {
@@ -34,6 +38,14 @@ const props = defineProps({
 
 const handleClick = () => {
   isFlipped.value = !isFlipped.value;
+}
+
+const handleApprove = () => {
+  isApprove.value = true;
+}
+
+const handleReject = () => {
+  isReject.value = true;
 }
 </script>
 
@@ -91,8 +103,10 @@ const handleClick = () => {
   left: 50%;
   transform: translateX(-50%);
   background-color: var(--color-white);
-  bottom: -20px;
+  bottom: -14px;
   padding: 0 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .front,
@@ -113,5 +127,15 @@ const handleClick = () => {
 
 .card.is-flipped .card__wrapper {
   transform: rotateY(180deg);
+}
+
+.big-icon {
+  width: 42px;
+  height: 42px;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+  top: -20px;
+  z-index: 1;
 }
 </style>

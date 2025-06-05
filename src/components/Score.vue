@@ -1,6 +1,6 @@
 <template>
   <span class="score">
-    {{score}}
+    {{props.score}}
     <HeartIcon />
   </span>
 </template>

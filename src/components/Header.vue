@@ -8,7 +8,8 @@
 
 <script setup lang="ts">
 import Score from './Score.vue';
-const score = 100;
+
+const props = defineProps<{ score: number }>();
 </script>
 
 <style>

@@ -133,6 +133,14 @@ const handleReject = () => {
   transform: rotateY(180deg);
 }
 
+.front {
+  opacity: 1;
+}
+
+.card.is-flipped .front {
+  opacity: 0;
+}
+
 .big-icon {
   width: 42px;
   height: 42px;

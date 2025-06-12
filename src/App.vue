@@ -1,8 +1,8 @@
 <template>
   <Header :score="score" />
   <main>
-    <Card :card="card" />
-    <Button />
+    <Card v-for="card in cards" :card="card" :key="card.cardNumber" />
+    <!-- <Button /> -->
   </main>
 </template>
 
@@ -12,17 +12,17 @@ import Button from './components/Button.vue';
 import Header from './components/Header.vue';
 import Card from './components/Card.vue';
 
-const score = ref(0);
-// status - success | fail | pending
-// state - opened | closed
-
-const card = ref({
+const cards = [
+  {
   cardNumber: '09',
   word: 'letter',
   translation: 'слово',
-  state: 'closed',
-  status: 'pending'
-})
+}, {
+  cardNumber: '09',
+  word: 'letter',
+  translation: 'слово',
+}
+]
 </script>
 
 <style scoped>

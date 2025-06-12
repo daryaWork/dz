@@ -4,17 +4,18 @@
       <div class="front">
         <span class="card__count">{{ card.cardNumber }}</span>
         <p class="card__word">{{ card.word }}</p>
-        <span class="card__action">перевернуть</span>
-      </div>
-      <div class="back">
-        <ApproveIcon v-if="isApprove" class="big-icon " />
-        <CloseIcon v-if="isReject" class="big-icon" />
-        <span class="card__count">{{ card.cardNumber }}</span>
-          <p class="card__word">{{ card.translation }}</p>
-          <div class="card__button">
+        <span v-if="!showButtons" class="card__action">перевернуть</span>
+        <div v-else class="card__button">
             <CloseIcon @click.stop="handleReject" />
             <ApproveIcon @click.stop="handleApprove" />
-          </div>
+        </div>
+      </div>
+      <div class="back">
+        <ApproveIcon v-if="status === 'success'" class="big-icon " />
+        <CloseIcon v-else-if="status === 'failed'" class="big-icon" />
+        <span class="card__count">{{ card.cardNumber }}</span>
+          <p class="card__word">{{ card.translation }}</p>
+
       </div>
     </div>
   </div>
@@ -25,9 +26,11 @@ import { ref } from 'vue';
 import ApproveIcon from '../icons/ApproveIcon.vue';
 import CloseIcon from '../icons/CloseIcon.vue';
 
+type Status = 'pending' | 'success' | 'failed';
+
 const isFlipped = ref(false);
-const isApprove = ref(false);
-const isReject = ref(false);
+const showButtons = ref(true);
+const status = ref<Status>('pending');
 
 const props = defineProps({
   card: {
@@ -41,24 +44,25 @@ const handleClick = () => {
 }
 
 const handleApprove = () => {
-  isApprove.value = true;
+  status.value = 'success';
 }
 
 const handleReject = () => {
-  isReject.value = true;
+  status.value = 'failed';
 }
 </script>
 
 <style scoped>
 .card {
-  width: 210px;
-  height: 336px;
+  width: 240px;
+  height: 376px;
   border-radius: 16px;
   color: var(--color-black);
   font-size: 18px;
   cursor: pointer;
   position: relative;
   perspective: 1000px;
+  padding: 20px;
 }
 
 .card__wrapper {
@@ -69,7 +73,7 @@ const handleReject = () => {
   position: relative;
   transform-style: preserve-3d;
   transition: transform .6s linear;
-  padding: 20px;
+  /* padding: 20px; */
   background-color: var(--color-white);
 }
 

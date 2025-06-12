@@ -1,8 +1,8 @@
 <template>
   <Header />
   <main>
-    <Card :card="card" />
-    <Button />
+    <Card v-for="card in cards" :card="card" :key="card.cardNumber" />
+    <!-- <Button /> -->
   </main>
 </template>
 
@@ -11,11 +11,17 @@ import Button from './components/Button.vue';
 import Header from './components/Header.vue';
 import Card from './components/Card.vue';
 
-const card = {
+const cards = [
+  {
+  cardNumber: '09',
+  word: 'letter',
+  translation: 'слово',
+}, {
   cardNumber: '09',
   word: 'letter',
   translation: 'слово',
 }
+]
 </script>
 
 <style scoped>

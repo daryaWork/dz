@@ -30,7 +30,7 @@ type Status = 'pending' | 'success' | 'failed';
 
 const isFlipped = ref(false);
 const showButtons = ref(true);
-const status = ref<Status>('success');
+const status = ref<Status>('pending');
 
 const props = defineProps({
   card: {
